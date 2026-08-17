@@ -2,8 +2,6 @@ import { createContext, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
-
 const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
