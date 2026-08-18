@@ -8,7 +8,7 @@ import { handleError } from "../../helpers/errorHelper";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { navigate, setError, loading, setLoading } = useAppContext();
+  const { navigate, setError, loading, setLoading, fetchUser } = useAppContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,15 +16,15 @@ export const Login = () => {
     setError(null);
 
     try {
-      const response = await axiosInstance.post("login", { email, password });
+      const response = await axiosInstance.post("/login", { email, password });
       console.log(response);
-
       const token = response.data.data.token;
 
       Cookies.set("token", token);
+      await fetchUser();
 
       if (response.data.data.user.role === "admin") {
-        navigate("/admin");
+        navigate("/admin/dashboard");
       } else {
         navigate("/");
       }
@@ -34,9 +34,9 @@ export const Login = () => {
       const message = handleError(error);
 
       setError(message);
-      setPassword("");
-
+      
       if (message === "Unauthorized") {
+        setPassword("");
         alert("Email atau password salah");
       }
     } finally {

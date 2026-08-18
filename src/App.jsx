@@ -6,29 +6,38 @@ import { Login } from "./pages/auth/Login"
 import { Register } from "./pages/auth/Register"
 import { AdminDashboard } from "./pages/admin/AdminDashboard"
 import { UserDashboard } from "./pages/user/UserDashboard"
+import { GuestRoute } from "./routes/GuestRoute"
+import { ProtectedRoute } from "./routes/ProtectedRoute"
+import { AdminRoute } from "./routes/AdminRoute"
 
 function App() {
   return (
     <div>
-      <Routes>
+        <Routes>
 
-        {/* User Routes */}
-        <Route path="/" element={<UserLayout />}>
-          <Route index element={<UserDashboard />} />
-        </Route>
+            {/* Guest Routes */}
+            <Route element={<GuestRoute />}>
+                <Route path="/auth" element={<AuthLayout />}>
+                    <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                </Route>
+            </Route>
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-        </Route>
+            {/* User Routes */}
+            <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<UserLayout />}>
+                    <Route index element={<UserDashboard />} />
+                </Route>
+            </Route>
 
-        {/* Auth Routes */}
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
+            {/* Admin Routes */}
+            <Route element={<AdminRoute />}>
+                <Route path="/admin" element={<AdminLayout />}>
+                    <Route path="dashboard" element={<AdminDashboard />} />
+                </Route>
+            </Route>
 
-      </Routes>      
+        </Routes>     
     </div>
   )
 }
