@@ -8,9 +8,7 @@ import { handleError } from "../../helpers/errorHelper";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const { navigate } = useAppContext();
+  const { navigate, setError, loading, setLoading } = useAppContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
