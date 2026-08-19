@@ -2,11 +2,11 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAppContext } from "../AppContext";
 
 export const GuestRoute = () => {
-  const { user, loading } = useAppContext();
+  const { user } = useAppContext();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   if (user) {
     if (user.role === "admin") {

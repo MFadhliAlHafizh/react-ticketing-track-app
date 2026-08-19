@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "../components/admin/Sidebar";
+import { Bell, ChevronDown } from "lucide-react";
 
 export const AdminLayout = ({ title }) => {
   return (
@@ -14,8 +15,8 @@ export const AdminLayout = ({ title }) => {
           <div className="flex items-center justify-between px-6 py-4">
             <h2 className="text-xl font-semibold text-gray-800">{ title }</h2>
             <div className="flex items-center space-x-4">
-              <button className="relative p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-full">
-                <i data-feather="bell" className="w-6 h-6"></i>
+              <button className="relative p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-full cursor-pointer">
+                <Bell className="w-6 h-6" />
                 <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
               <div className="flex items-center bg-gray-50 px-4 py-2 rounded-full">
@@ -27,10 +28,7 @@ export const AdminLayout = ({ title }) => {
                 <span className="ml-2 text-sm font-medium text-gray-700">
                   Admin
                 </span>
-                <i
-                  data-feather="chevron-down"
-                  className="w-4 h-4 ml-2 text-gray-500"
-                ></i>
+                <ChevronDown className="w-4 h-4 ml-2 text-gray-500" />
               </div>
             </div>
           </div>
