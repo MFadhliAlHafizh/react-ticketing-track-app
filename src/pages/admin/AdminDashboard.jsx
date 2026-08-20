@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from "react";
 import { Tag, Clock, CheckCircle } from "lucide-react";
 import { handleError } from "../../helpers/errorHelper";
 import { axiosInstance } from "../../plugins/axios";
-import { useAppContext } from "../../AppContext";
 import { StatusChart } from "../../components/admin/StatusChart";
 import { StatCard } from "../../components/admin/StatCard";
 import { TicketItem } from "../../components/admin/TicketItem";
@@ -11,8 +10,25 @@ export const AdminDashboard = () => {
     const [statistic, setStatistic] = useState(null);
     const [statLoading, setStatLoading] = useState(true);
     const [statError, setStatError] = useState(null);
+    const [recentTickets, setRecentTickets] = useState([]);
+    const [ticketLoading, setTicketLoading] = useState(true);
+    const [ticketError, setTicketError] = useState(null);
 
-    const { tickets, ticketLoading, ticketError } = useAppContext();
+    const fetchRecentTickets = useCallback(async () => {
+        setTicketLoading(true);
+        setTicketError(null);
+
+        try {
+            const response = await axiosInstance.get("ticket", {
+                params: { limit: 5 },
+            });
+            setRecentTickets(response.data.data);
+        } catch (error) {
+            setTicketError(handleError(error));
+        } finally {
+            setTicketLoading(false);
+        }
+    }, []);  
 
     const fetchStatistics = useCallback(async () => {
         setStatLoading(true);
@@ -28,7 +44,8 @@ export const AdminDashboard = () => {
 
     useEffect(() => {
         fetchStatistics();
-    }, [fetchStatistics]);
+        fetchRecentTickets();
+    }, [fetchStatistics, fetchRecentTickets]);
 
     return (
         <div>
@@ -99,11 +116,11 @@ export const AdminDashboard = () => {
                             <p className="p-4 text-sm text-red-500">{ticketError}</p>
                         )}
 
-                        {!ticketLoading && tickets.length === 0 && (
+                        {!ticketLoading && recentTickets.length === 0 && (
                             <p className="p-4 text-sm text-gray-500">Belum ada tiket.</p>
                         )}
 
-                        {tickets.map((ticket) => (
+                        {recentTickets.map((ticket) => (
                             <TicketItem key={ticket.code} ticket={ticket} />
                         ))}
                     </div>
