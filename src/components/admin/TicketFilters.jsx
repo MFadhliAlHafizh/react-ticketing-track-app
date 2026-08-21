@@ -27,7 +27,7 @@ export const TicketFilters = ({ filters, onChange }) => {
           >
             <option value="">Semua Status</option>
             <option value="open">Open</option>
-            <option value="on_progress">On Progress</option>
+            <option value="onprogress">On Progress</option>
             <option value="resolved">Resolved</option>
             <option value="rejected">Rejected</option>
           </select>
