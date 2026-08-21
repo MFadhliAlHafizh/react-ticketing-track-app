@@ -34,6 +34,24 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
+  const handleLogout = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await axiosInstance.post("/logout");
+
+      Cookies.remove("token");
+      setUser(null);
+
+      navigate("/auth/login");
+    } catch (error) {
+      setError(handleError(error));
+    } finally {
+      setLoading(false);
+    }
+  };  
+
   useEffect(() => {
     fetchUser();
   }, []);
@@ -47,6 +65,7 @@ export const AppContextProvider = ({ children }) => {
     user,
     setUser,
     fetchUser,
+    handleLogout,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

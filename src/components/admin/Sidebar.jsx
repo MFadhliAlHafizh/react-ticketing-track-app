@@ -1,30 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { axiosInstance } from "../../plugins/axios";
-import Cookies from "js-cookie";
-import { handleError } from "../../helpers/errorHelper";
 import { useAppContext } from "../../AppContext";
 import { Activity, House, LogOut, Tag } from "lucide-react";
 
 export const Sidebar = () => {
-  const { navigate, setError, setLoading, setUser } = useAppContext();
-
-  const handleLogout = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      await axiosInstance.post("/logout");
-
-      Cookies.remove("token");
-      setUser(null);
-
-      navigate("/auth/login");
-    } catch (error) {
-      setError(handleError(error));
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { handleLogout } = useAppContext();
 
   return (
     <aside className="w-64 bg-white shadow-lg">
