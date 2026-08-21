@@ -2,19 +2,7 @@ import { Link } from "react-router-dom";
 import { capitalize } from "lodash";
 import { DateTime } from "luxon";
 import { MessageSquare } from "lucide-react";
-
-const STATUS_STYLES = {
-  open: "text-blue-700 bg-blue-100",
-  onprogress: "text-yellow-700 bg-yellow-100",
-  resolved: "text-green-700 bg-green-100",
-  rejected: "text-red-700 bg-red-100",
-};
-
-const PRIORITY_STYLES = {
-  high: "text-red-700 bg-red-100",
-  medium: "text-yellow-700 bg-yellow-100",
-  low: "text-green-700 bg-green-100",
-};
+import { PRIORITY_STYLES, STATUS_STYLES } from "../../labelStyles";
 
 export const TicketTableRow = ({ ticket }) => {
   return (

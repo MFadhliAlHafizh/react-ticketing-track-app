@@ -10,6 +10,7 @@ import { GuestRoute } from "./routes/GuestRoute"
 import { ProtectedRoute } from "./routes/ProtectedRoute"
 import { AdminRoute } from "./routes/AdminRoute"
 import { TicketList } from "./pages/admin/TicketList"
+import { TicketDetail } from "./pages/admin/TicketDetail"
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route path="dashboard" element={<AdminDashboard />} />
                     <Route path="ticket" element={<TicketList />} />
+                    <Route path="ticket/:code" element={<TicketDetail />} />
                 </Route>
             </Route>
 
