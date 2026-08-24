@@ -1,22 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Plus, CheckCircle, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Plus } from "lucide-react";
 import { TicketFilters } from "../../components/admin/TicketFilters";
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
-import { TicketCard } from "../../components/admin/TicketCard";
+import { TicketCard } from "../../components/user/TicketCard";
 import { debounce } from "lodash";
 
 export const UserDashboard = () => {
-  const location = useLocation();
 
   const [tickets, setTickets] = useState([]);
   const [ticketsLoading, setTicketsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const [successMessage, setSuccessMessage] = useState(
-    location.state?.success ?? null,
-  );
 
   const [filters, setFilters] = useState({
     search: "",
@@ -67,25 +62,6 @@ export const UserDashboard = () => {
           Buat Tiket Baru
         </Link>
       </div>
-
-      {/* Success Alert */}
-      {successMessage && (
-        <div
-          className="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative flex items-center justify-between"
-          role="alert"
-        >
-          <div className="flex items-center">
-            <CheckCircle className="w-5 h-5 mr-2" />
-            <span>{successMessage}</span>
-          </div>
-          <button
-            onClick={() => setSuccessMessage(null)}
-            className="flex items-center justify-center"
-          >
-            <X className="w-4 h-4 text-green-600" />
-          </button>
-        </div>
-      )}
 
       {/* Filters */}
       <TicketFilters filters={filters} onChange={setFilters} />

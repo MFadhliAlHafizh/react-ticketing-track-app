@@ -11,6 +11,7 @@ import { ProtectedRoute } from "./routes/ProtectedRoute"
 import { AdminRoute } from "./routes/AdminRoute"
 import { TicketList } from "./pages/admin/TicketList"
 import { TicketDetail } from "./pages/admin/TicketDetail"
+import { UserTicketDetail } from "./pages/user/UserTicketDetail"
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
                 <Route path="/" element={<UserLayout />}>
                     <Route index element={<UserDashboard />} />
+                    <Route path="ticket/:code" element={<UserTicketDetail />} />
                 </Route>
             </Route>
 

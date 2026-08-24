@@ -7,7 +7,7 @@ import { PRIORITY_STYLES, STATUS_STYLES } from "../../labelStyles";
 export const TicketCard = ({ ticket }) => {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-      <Link to={`/app/ticket/${ticket.code}`} className="block p-6">
+      <Link to={`ticket/${ticket.code}`} className="block p-6">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center space-x-3">
