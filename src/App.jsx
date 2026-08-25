@@ -12,6 +12,7 @@ import { AdminRoute } from "./routes/AdminRoute"
 import { TicketList } from "./pages/admin/TicketList"
 import { TicketDetail } from "./pages/admin/TicketDetail"
 import { UserTicketDetail } from "./pages/user/UserTicketDetail"
+import { TicketCreate } from "./pages/user/TicketCreate"
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/" element={<UserLayout />}>
                     <Route index element={<UserDashboard />} />
                     <Route path="ticket/:code" element={<UserTicketDetail />} />
+                    <Route path="ticket/create" element={<TicketCreate />} />
                 </Route>
             </Route>
 

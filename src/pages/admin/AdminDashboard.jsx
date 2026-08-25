@@ -5,6 +5,7 @@ import { axiosInstance } from "../../plugins/axios";
 import { StatusChart } from "../../components/admin/StatusChart";
 import { StatCard } from "../../components/admin/StatCard";
 import { TicketItem } from "../../components/admin/TicketItem";
+import { Link } from "react-router-dom";
 
 export const AdminDashboard = () => {
     const [statistic, setStatistic] = useState(null);
@@ -19,10 +20,8 @@ export const AdminDashboard = () => {
         setTicketError(null);
 
         try {
-            const response = await axiosInstance.get("ticket", {
-                params: { limit: 5 },
-            });
-            setRecentTickets(response.data.data);
+            const response = await axiosInstance.get("/ticket");
+            setRecentTickets(response.data.data.slice(0,5));
         } catch (error) {
             setTicketError(handleError(error));
         } finally {
@@ -102,9 +101,9 @@ export const AdminDashboard = () => {
                     <div className="p-6 border-b border-gray-100">
                         <div className="flex items-center justify-between">
                             <h3 className="text-lg font-semibold text-gray-800">Tiket Terbaru</h3>
-                            <a href="#" className="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                            <Link to="/admin/ticket" className="text-sm text-blue-600 hover:text-blue-800 font-medium">
                                 Lihat Semua
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className="divide-y divide-gray-100">
