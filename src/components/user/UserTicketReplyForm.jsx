@@ -1,12 +1,6 @@
 import { Paperclip, Send } from "lucide-react";
 
-export const UserTicketReplyForm = ({
-  content,
-  onChange,
-  onSubmit,
-  error,
-  loading,
-}) => {
+export const UserTicketReplyForm = ({ content, onChange, onSubmit, error, loading }) => {
   return (
     <div className="p-6 border-t border-gray-100">
       <h4 className="text-sm font-medium text-gray-800 mb-4">Tambah Balasan</h4>

@@ -23,7 +23,7 @@ export const UserTicketDetail = () => {
   const fetchTicketDetail = useCallback(async () => {
     setDetailLoading(true);
     try {
-      const response = await axiosInstance.get(`ticket/${code}`);
+      const response = await axiosInstance.get(`/ticket/${code}`);
       setTicket(response.data.data);
     } catch (error) {
       setDetailError(handleError(error));
@@ -39,7 +39,7 @@ export const UserTicketDetail = () => {
     setSubmitSuccess(null);
 
     try {
-      const response = await axiosInstance.post(`ticket-reply/${code}`, { content });
+      const response = await axiosInstance.post(`/ticket-reply/${code}`, { content });
 
       setContent("");
       setSubmitSuccess(response.data.message);
@@ -53,7 +53,7 @@ export const UserTicketDetail = () => {
 
   useEffect(() => {
     fetchTicketDetail();
-  }, [fetchTicketDetail]);
+  }, [code]);
 
   if (detailLoading) {
     return <p className="text-sm text-gray-500">Memuat tiket...</p>;

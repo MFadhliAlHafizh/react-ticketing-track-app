@@ -4,12 +4,7 @@ import { ArrowLeft, Send } from "lucide-react";
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
 import { PriorityOption } from "../../components/user/PriorityOption";
-
-const PRIORITY_OPTIONS = [
-  { value: "low", title: "Rendah", description: "Tidak mendesak" },
-  { value: "medium", title: "Sedang", description: "Normal" },
-  { value: "high", title: "Tinggi", description: "Mendesak" },
-];
+import { PRIORITY_OPTIONS } from "../../ticketConstants";
 
 export const TicketCreate = () => {
   const navigate = useNavigate();
@@ -151,7 +146,7 @@ export const TicketCreate = () => {
           {/* Submit Button */}
           <div className="flex justify-end space-x-4">
             <Link
-              to="/app/dashboard"
+              to="/"
               className="px-6 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50"
             >
               Batal

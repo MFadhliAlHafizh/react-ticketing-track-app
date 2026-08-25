@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { capitalize } from "lodash";
 import { DateTime } from "luxon";
 import { MessageSquare } from "lucide-react";
-import { PRIORITY_STYLES, STATUS_STYLES } from "../../labelStyles";
+import { PRIORITY_STYLES, STATUS_STYLES } from "../../ticketConstants";
 
 export const TicketTableRow = ({ ticket }) => {
   return (

@@ -1,4 +1,3 @@
-// constants/ticketStyles.js
 export const STATUS_STYLES = {
   open: "text-blue-700 bg-blue-100",
   onprogress: "text-yellow-700 bg-yellow-100",
@@ -11,3 +10,9 @@ export const PRIORITY_STYLES = {
   medium: "text-yellow-700 bg-yellow-100",
   low: "text-green-700 bg-green-100",
 };
+
+export const PRIORITY_OPTIONS = [
+  { value: "low", title: "Rendah", description: "Tidak mendesak" },
+  { value: "medium", title: "Sedang", description: "Normal" },
+  { value: "high", title: "Tinggi", description: "Mendesak" },
+];

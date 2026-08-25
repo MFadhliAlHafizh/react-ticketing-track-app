@@ -4,11 +4,11 @@ import { capitalize } from "lodash";
 import { Download, CheckCircle } from "lucide-react";
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
-import { PRIORITY_STYLES, STATUS_STYLES } from "../../labelStyles";
+import { PRIORITY_STYLES, STATUS_STYLES } from "../../ticketConstants";
 import { TicketReplyItem } from "../../components/admin/TicketReplyItem";
 import { TicketReplyForm } from "../../components/admin/TicketReplyForm";
 
-export const TicketDetail = () => {
+export const AdminTicketDetail = () => {
   const { code } = useParams();
 
   const [ticket, setTicket] = useState(null);
@@ -22,7 +22,7 @@ export const TicketDetail = () => {
   const fetchTicketDetail = useCallback(async () => {
     setDetailLoading(true);
     try {
-      const response = await axiosInstance.get(`ticket/${code}`);
+      const response = await axiosInstance.get(`/ticket/${code}`);
       const data = response.data.data;
       setTicket(data);
       setForm((prev) => ({ ...prev, status: data.status }));
@@ -38,7 +38,7 @@ export const TicketDetail = () => {
     setSubmitLoading(true);
     setSubmitError(null);
     try {
-      await axiosInstance.post(`ticket-reply/${code}`, form);
+      await axiosInstance.post(`/ticket-reply/${code}`, form);
       await fetchTicketDetail();
       setForm((prev) => ({ ...prev, content: "" }));
     } catch (error) {
@@ -50,7 +50,7 @@ export const TicketDetail = () => {
 
   useEffect(() => {
     fetchTicketDetail();
-  }, [fetchTicketDetail]);
+  }, [code]);
 
   if (detailLoading) {
     return <div className="p-6 text-sm text-gray-500">Memuat tiket...</div>;

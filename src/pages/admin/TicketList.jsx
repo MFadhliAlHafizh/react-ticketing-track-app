@@ -22,7 +22,7 @@ export const TicketList = () => {
         setTicketError(null);
         setTickets([]);
         try {
-            const response = await axiosInstance.get("ticket", { params });
+            const response = await axiosInstance.get("/ticket", { params });
             setTickets(response.data.data);
         } catch (error) {
             setTicketError(handleError(error));

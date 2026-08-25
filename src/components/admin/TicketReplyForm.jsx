@@ -1,12 +1,6 @@
 import { Paperclip, Send } from "lucide-react";
 
-export const TicketReplyForm = ({
-  form,
-  onChange,
-  onSubmit,
-  error,
-  loading,
-}) => {
+export const TicketReplyForm = ({ form, onChange, onSubmit, error, loading }) => {
   const handleFieldChange = (key) => (e) => {
     onChange({ ...form, [key]: e.target.value });
   };

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Tag, Clock, CheckCircle } from "lucide-react";
 import { handleError } from "../../helpers/errorHelper";
 import { axiosInstance } from "../../plugins/axios";
@@ -15,7 +15,7 @@ export const AdminDashboard = () => {
     const [ticketLoading, setTicketLoading] = useState(true);
     const [ticketError, setTicketError] = useState(null);
 
-    const fetchRecentTickets = useCallback(async () => {
+    const fetchRecentTickets = async () => {
         setTicketLoading(true);
         setTicketError(null);
 
@@ -27,24 +27,24 @@ export const AdminDashboard = () => {
         } finally {
             setTicketLoading(false);
         }
-    }, []);  
+    };  
 
-    const fetchStatistics = useCallback(async () => {
+    const fetchStatistics = async () => {
         setStatLoading(true);
         try {
-            const response = await axiosInstance.get("dashboard/statistics");
+            const response = await axiosInstance.get("/dashboard/statistics");
             setStatistic(response.data.data);
         } catch (err) {
             setStatError(handleError(err));
         } finally {
             setStatLoading(false);
         }
-    }, []);
+    };
 
     useEffect(() => {
         fetchStatistics();
         fetchRecentTickets();
-    }, [fetchStatistics, fetchRecentTickets]);
+    }, []);
 
     return (
         <div>
@@ -95,9 +95,9 @@ export const AdminDashboard = () => {
             {statError && <p className="text-sm text-red-500 mt-2">{statError}</p>}
 
             {/* Charts and Recent Tickets */}
-            <div className="grid grid-cols-12 gap-6 mt-6">
+            <div className="flex flex-col lg:flex-row gap-6 mt-6">
                 {/* Recent Tickets */}
-                <div className="col-span-8 bg-white rounded-xl shadow-sm border border-gray-100">
+                <div className="flex-1 bg-white rounded-xl shadow-sm border border-gray-100">
                     <div className="p-6 border-b border-gray-100">
                         <div className="flex items-center justify-between">
                             <h3 className="text-lg font-semibold text-gray-800">Tiket Terbaru</h3>
@@ -126,7 +126,7 @@ export const AdminDashboard = () => {
                 </div>
 
                 {/* Status Distribution Chart */}
-                <div className="col-span-4 bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <div className="w-full max-w-96 bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                     <h3 className="text-lg font-semibold text-gray-800 mb-4">Distribusi Status</h3>
                     <StatusChart statistic={statistic} />
                 </div>
