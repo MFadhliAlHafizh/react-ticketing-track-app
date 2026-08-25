@@ -2,9 +2,9 @@ import { Activity, useEffect, useState } from "react";
 import { Tag, Clock, CheckCircle, AlertCircle, Inbox, LayoutDashboard } from "lucide-react";
 import { handleError } from "../../helpers/errorHelper";
 import { axiosInstance } from "../../plugins/axios";
-import { StatusChart } from "../../components/admin/StatusChart";
-import { StatCard } from "../../components/admin/StatCard";
-import { TicketItem } from "../../components/admin/TicketItem";
+import { StatusChart } from "../../components/admin/dashboard/StatusChart";
+import { StatCard } from "../../components/admin/dashboard/StatCard";
+import { TicketItem } from "../../components/admin/ticket/TicketItem";
 import { Link } from "react-router-dom";
 
 export const AdminDashboard = () => {

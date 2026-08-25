@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Send, Ticket, FileText, AlertCircle } from "lucide-react";
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
-import { PriorityOption } from "../../components/user/PriorityOption";
+import { PriorityOption } from "../../components/user/ticket/PriorityOption"; 
 import { PRIORITY_OPTIONS } from "../../ticketConstants";
 
 export const TicketCreate = () => {
