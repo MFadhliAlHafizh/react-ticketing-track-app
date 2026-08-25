@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../plugins/axios";
 import Cookies from "js-cookie";
 import { handleError } from "../../helpers/errorHelper";
 import { useAppContext } from "../../AppContext";
 
 export const Register = () => {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { navigate, error, setError, loading, setLoading, setUser } = useAppContext();
+  const { error, setError, loading, setLoading, setUser } = useAppContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

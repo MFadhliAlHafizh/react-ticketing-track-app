@@ -57,7 +57,6 @@ export const AppContextProvider = ({ children }) => {
   }, []);
 
   const value = {
-    navigate,
     loading,
     setLoading,
     error,
