@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { capitalize } from "lodash";
-import { Download, CheckCircle, AlertCircle, MessageCircle, User } from "lucide-react";
+import { Download, CheckCircle, AlertCircle, MessageCircle, User, ArrowLeft, X } from "lucide-react";
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
 import { PRIORITY_STYLES, STATUS_STYLES } from "../../ticketConstants";
@@ -18,6 +18,7 @@ export const AdminTicketDetail = () => {
   const [form, setForm] = useState({ status: "", content: "" });
   const [submitLoading, setSubmitLoading] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const [submitSuccess, setSubmitSuccess] = useState(null);
 
   const fetchTicketDetail = useCallback(async () => {
     setDetailLoading(true);
@@ -40,11 +41,13 @@ export const AdminTicketDetail = () => {
     e.preventDefault();
     setSubmitLoading(true);
     setSubmitError(null);
+    setSubmitSuccess(null);
 
     try {
-      await axiosInstance.post(`/ticket-reply/${code}`, form);
+      const response = await axiosInstance.post(`/ticket-reply/${code}`, form);
       await fetchTicketDetail();
       setForm((prev) => ({ ...prev, content: "" }));
+      setSubmitSuccess(response.data.message);
     } catch (error) {
       setSubmitError(handleError(error));
     } finally {
@@ -114,6 +117,17 @@ export const AdminTicketDetail = () => {
 
   return (
     <div className="space-y-6">
+      {/* Back Button */}
+      <div className="mb-5">
+        <Link
+          to="/admin/ticket"
+          className="group inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800"
+        >
+          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+          Kembali ke Daftar Tiket
+        </Link>
+      </div>
+
       {/* Ticket Header */}
       <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
         <div className="border-b border-gray-100 bg-white px-5 py-5 sm:px-6 sm:py-6">
@@ -172,6 +186,33 @@ export const AdminTicketDetail = () => {
           </div>
         </div>
       </div>
+
+      {/* Success Message */}
+      {submitSuccess && (
+        <div
+          className="flex items-center justify-between gap-4 rounded-2xl border border-green-100 bg-green-50 px-4 py-2 shadow-sm"
+          role="alert"
+        >
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100">
+              <CheckCircle className="h-4 w-4 text-green-600" />
+            </div>
+
+            <p className="text-sm font-semibold text-green-700">
+              {submitSuccess}
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setSubmitSuccess(null)}
+            className="rounded-md p-1 text-green-600 transition-colors hover:bg-green-100 cursor-pointer"
+            aria-label="Tutup pesan"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
 
       {/* Discussion */}
       <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">

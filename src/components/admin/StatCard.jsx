@@ -18,7 +18,7 @@ export const StatCard = ({
         <div className="min-w-0">
           <p className="text-sm font-medium text-gray-500 truncate">{label}</p>
           {loading ? (
-            <div className="h-8 w-20 mt-2 rounded-md bg-red-100 animate-pulse" />
+            <div className="h-8 w-20 mt-2 rounded-md bg-gray-100 animate-pulse" />
           ) : (
             <h3 className="text-2xl font-bold text-gray-900 mt-1 tracking-tight">
               {value}

@@ -1,18 +1,16 @@
 import { CheckCircle } from "lucide-react";
-
-const PRIORITY_THEME = {
-  low: { border: "border-green-200 bg-green-50", icon: "text-green-600" },
-  medium: { border: "border-yellow-200 bg-yellow-50", icon: "text-yellow-600" },
-  high: { border: "border-red-200 bg-red-50", icon: "text-red-600" },
-};
+import { PRIORITY_THEME } from "../../ticketConstants";
 
 export const PriorityOption = ({ value, title, description, selected, onSelect }) => {
   const theme = PRIORITY_THEME[value];
+  const Icon = theme.Icon;
 
   return (
     <label
-      className={`relative flex cursor-pointer rounded-lg border ${
-        selected ? theme.border : "border-gray-200"
+      className={`group relative cursor-pointer overflow-hidden rounded-xl border-2 transition-all duration-200 ${
+        selected
+          ? `${theme.border} shadow-sm`
+          : `border-gray-100 bg-white ${theme.hover} hover:shadow-sm`
       }`}
     >
       <input
@@ -23,18 +21,44 @@ export const PriorityOption = ({ value, title, description, selected, onSelect }
         onChange={() => onSelect(value)}
         className="sr-only"
       />
-      <div className="flex w-full items-center justify-between p-4">
-        <div className="flex items-center">
-          <div className="text-sm">
-            <p className="font-medium text-gray-900">{title}</p>
-            <p className="text-gray-500">{description}</p>
+
+      <div className="flex min-h-27.5 flex-col justify-between p-4">
+        <div className="flex items-start justify-between gap-3">
+
+          {/* Icon */}
+          <div
+            className={`flex h-9 w-9 items-center justify-center rounded-lg ${
+              selected ? theme.iconBg : "bg-gray-100"
+            }`}
+          >
+            <Icon
+              className={`h-4 w-4 ${
+                selected ? theme.icon : "text-gray-400"
+              }`}
+            />
           </div>
+
+          {/* Check */}
+          {selected && (
+            <CheckCircle
+              className={`h-5 w-5 shrink-0 ${theme.icon}`}
+            />
+          )}
         </div>
-        {selected && (
-          <div className={`shrink-0 ${theme.icon}`}>
-            <CheckCircle className="w-6 h-6" />
-          </div>
-        )}
+
+        <div className="mt-4">
+          <p
+            className={`text-sm font-semibold ${
+              selected ? "text-gray-900" : "text-gray-800"
+            }`}
+          >
+            {title}
+          </p>
+
+          <p className="mt-0.5 text-xs text-gray-500">
+            {description}
+          </p>
+        </div>
       </div>
     </label>
   );

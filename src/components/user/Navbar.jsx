@@ -16,20 +16,27 @@ export const Navbar = () => {
     };
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
-  }, []);  
+  }, []);
 
   return (
     <nav className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <a href="#" className="flex items-center">
-              <Activity className="w-8 h-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-blue-600">
-                TickTrack
-              </span>
-            </a>
+        <div className="flex justify-between">
+          {/* Logo */}
+          <div className="px-5 flex h-19 items-center border-b border-gray-100">
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm">
+                <Activity className="h-5 w-5" />
+              </div>
+
+              <div className="min-w-0">
+                <h1 className="truncate text-lg font-bold tracking-tight text-gray-900 whitespace-nowrap">
+                  Tick<span className="text-blue-600">Track</span>
+                </h1>
+              </div>
+            </div>
           </div>
+
           <div className="flex items-center space-x-4">
             <button className="relative p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-full cursor-pointer">
               <Bell className="w-6 h-6" />
