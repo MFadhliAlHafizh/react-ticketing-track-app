@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { CheckCircle, Plus, X, Ticket, ArrowUpRight } from "lucide-react";
-import { TicketFilters } from "../../components/admin/TicketFilters";
+import { TicketFilters } from "../../components/admin/ticket/TicketFilters";
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
-import { TicketCard } from "../../components/user/TicketCard";
+import { TicketCard } from "../../components/user/ticket/TicketCard";
 import { debounce } from "lodash";
 
 export const UserDashboard = () => {

@@ -6,8 +6,8 @@ import { ArrowLeft, CheckCircle, Download, X, MessageCircle } from "lucide-react
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
 import { PRIORITY_STYLES, STATUS_STYLES } from "../../ticketConstants";
-import { TicketReplyItem } from "../../components/admin/TicketReplyItem";
-import { UserTicketReplyForm } from "../../components/user/UserTicketReplyForm";
+import { TicketReplyItem } from "../../components/admin/ticket/TicketReplyItem";
+import { UserTicketReplyForm } from "../../components/user/ticket/UserTicketReplyForm";
 
 export const UserTicketDetail = () => {
   const { code } = useParams();

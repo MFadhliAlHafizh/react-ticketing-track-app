@@ -5,8 +5,8 @@ import { Download, CheckCircle, AlertCircle, MessageCircle, User, ArrowLeft, X }
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
 import { PRIORITY_STYLES, STATUS_STYLES } from "../../ticketConstants";
-import { TicketReplyItem } from "../../components/admin/TicketReplyItem";
-import { TicketReplyForm } from "../../components/admin/TicketReplyForm";
+import { TicketReplyItem } from "../../components/admin/ticket/TicketReplyItem";
+import { TicketReplyForm } from "../../components/admin/ticket/TicketReplyForm";
 
 export const AdminTicketDetail = () => {
   const { code } = useParams();

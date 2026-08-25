@@ -1,5 +1,5 @@
 import { CheckCircle } from "lucide-react";
-import { PRIORITY_THEME } from "../../ticketConstants";
+import { PRIORITY_THEME } from "../../../ticketConstants";
 
 export const PriorityOption = ({ value, title, description, selected, onSelect }) => {
   const theme = PRIORITY_THEME[value];

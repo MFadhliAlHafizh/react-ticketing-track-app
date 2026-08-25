@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { capitalize } from "lodash";
 import { DateTime } from "luxon";
 import { MoreVertical, Eye } from "lucide-react";
-import { STATUS_STYLES } from "../../ticketConstants";
+import { STATUS_STYLES } from "../../../ticketConstants";
 
 export const TicketItem = ({ ticket }) => {
   const [openMenuCode, setOpenMenuCode] = useState(null);
