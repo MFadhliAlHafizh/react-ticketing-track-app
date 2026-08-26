@@ -6,21 +6,19 @@ import { Login } from "./pages/auth/Login"
 import { Register } from "./pages/auth/Register"
 import { AdminDashboard } from "./pages/admin/AdminDashboard"
 import { UserDashboard } from "./pages/user/UserDashboard"
-import { GuestRoute } from "./routes/GuestRoute"
-import { ProtectedRoute } from "./routes/ProtectedRoute"
-import { AdminRoute } from "./routes/AdminRoute"
 import { TicketList } from "./pages/admin/TicketList"
 import { AdminTicketDetail } from "./pages/admin/AdminTicketDetail"
 import { UserTicketDetail } from "./pages/user/UserTicketDetail"
 import { TicketCreate } from "./pages/user/TicketCreate"
+import { RoleRoute } from "./routes/roleRoute"
 
 function App() {
   return (
     <div>
         <Routes>
 
-            {/* Guest Routes */}
-            <Route element={<GuestRoute />}>
+            {/* Authentication Routes */}
+            <Route element={<RoleRoute guestOnly />}>
                 <Route path="/auth" element={<AuthLayout />}>
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
@@ -28,7 +26,7 @@ function App() {
             </Route>
 
             {/* User Routes */}
-            <Route element={<ProtectedRoute />}>
+            <Route element={<RoleRoute allowedRole="user" />}>
                 <Route path="/" element={<UserLayout />}>
                     <Route index element={<UserDashboard />} />
                     <Route path="ticket/:code" element={<UserTicketDetail />} />
@@ -37,7 +35,7 @@ function App() {
             </Route>
 
             {/* Admin Routes */}
-            <Route element={<AdminRoute />}>
+            <Route element={<RoleRoute allowedRole="admin" />}>
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route path="dashboard" element={<AdminDashboard />} />
                     <Route path="ticket" element={<TicketList />} />

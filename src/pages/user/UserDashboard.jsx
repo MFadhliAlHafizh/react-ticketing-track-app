@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { CheckCircle, Plus, X, Ticket, ArrowUpRight } from "lucide-react";
-import { TicketFilters } from "../../components/admin/ticket/TicketFilters";
+import { Plus, Ticket, ArrowUpRight } from "lucide-react";
+import { TicketFilters } from "../../components/ticket/TicketFilters";
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
 import { TicketCard } from "../../components/user/ticket/TicketCard";
 import { debounce } from "lodash";
+import { SuccessAlert } from "../../components/SuccessAlert";
 
 export const UserDashboard = () => {
   const location = useLocation();
@@ -83,33 +84,10 @@ export const UserDashboard = () => {
       </div>
 
       {/* Success Message */}
-      {successMessage && (
-        <div
-          className="flex items-start justify-between gap-4 rounded-xl border border-green-100 bg-green-50 px-4 py-3.5 shadow-sm"
-          role="alert"
-        >
-          <div className="flex min-w-0 items-start gap-3">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100">
-              <CheckCircle className="h-4 w-4 text-green-600" />
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold text-green-700">Berhasil</p>
-
-              <p className="mt-0.5 text-xs text-green-600">{successMessage}</p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setSuccessMessage(null)}
-            className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-lg text-green-500 transition hover:bg-green-100 hover:text-green-700"
-            aria-label="Tutup pesan"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-      )}
+      <SuccessAlert
+        message={successMessage}
+        onClose={() => setSuccessMessage(null)}
+      />
 
       {/* Filters */}
       <div>

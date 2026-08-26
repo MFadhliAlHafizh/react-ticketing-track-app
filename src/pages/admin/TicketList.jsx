@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { debounce } from "lodash";
 import { AlertCircle, Inbox, Ticket } from "lucide-react";
-import { TicketFilters } from "../../components/admin/ticket/TicketFilters"; 
+import { TicketFilters } from "../../components/ticket/TicketFilters";
 import { TicketTableRow } from "../../components/admin/ticket/TicketTableRow"; 
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";

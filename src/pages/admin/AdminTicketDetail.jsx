@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import { capitalize } from "lodash";
-import { Download, CheckCircle, AlertCircle, MessageCircle, User, ArrowLeft, X } from "lucide-react";
+import { AlertCircle, ArrowLeft } from "lucide-react";
 import { axiosInstance } from "../../plugins/axios";
 import { handleError } from "../../helpers/errorHelper";
-import { PRIORITY_STYLES, STATUS_STYLES } from "../../ticketConstants";
-import { TicketReplyItem } from "../../components/admin/ticket/TicketReplyItem";
-import { TicketReplyForm } from "../../components/admin/ticket/TicketReplyForm";
+import { TicketHeader } from "../../components/admin/ticket/TicketHeader";
+import { SuccessAlert } from "../../components/SuccessAlert";
+import { TicketDetailSkeleton } from "../../components/ticket/TicketDetailSkeleton";
+import { TicketDiscussion } from "../../components/admin/ticket/TicketDiscussion";
 
 export const AdminTicketDetail = () => {
   const { code } = useParams();
@@ -60,32 +60,7 @@ export const AdminTicketDetail = () => {
   }, [fetchTicketDetail]);
 
   if (detailLoading) {
-    return (
-      <div className="space-y-6">
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm p-6">
-          <div className="flex items-start gap-4">
-            <div className="h-12 w-12 animate-pulse rounded-xl bg-gray-100" />
-            <div className="flex-1 space-y-3">
-              <div className="h-3 w-24 animate-pulse rounded bg-gray-100" />
-              <div className="h-6 w-2/3 animate-pulse rounded bg-gray-100" />
-              <div className="h-4 w-1/3 animate-pulse rounded bg-gray-100" />
-            </div>
-          </div>
-        </div>
-
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm p-6 space-y-5">
-          <div className="h-5 w-32 animate-pulse rounded bg-gray-100" />
-          <div className="flex gap-4">
-            <div className="h-10 w-10 animate-pulse rounded-full bg-gray-100" />
-            <div className="flex-1 space-y-3">
-              <div className="h-4 w-32 animate-pulse rounded bg-gray-100" />
-              <div className="h-3 w-24 animate-pulse rounded bg-gray-100" />
-              <div className="h-16 w-full animate-pulse rounded bg-gray-100" />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <TicketDetailSkeleton />;
   }
 
   if (detailError) {
@@ -110,11 +85,6 @@ export const AdminTicketDetail = () => {
     return null;
   }
 
-  const statusStyle =
-    STATUS_STYLES[ticket.status] ?? "text-gray-700 bg-gray-100";
-  const priorityStyle =
-    PRIORITY_STYLES[ticket.priority] ?? "text-gray-700 bg-gray-100";
-
   return (
     <div className="space-y-6">
       {/* Back Button */}
@@ -129,148 +99,23 @@ export const AdminTicketDetail = () => {
       </div>
 
       {/* Ticket Header */}
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="border-b border-gray-100 bg-white px-5 py-5 sm:px-6 sm:py-6">
-          <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-            <div className="flex min-w-0 gap-4">
-              <div className="min-w-0">
-                <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-xs font-semibold text-blue-600">
-                    #{ticket.code}
-                  </span>
-
-                  <span className="text-gray-300">•</span>
-
-                  <span className="text-xs text-gray-400">Detail Tiket</span>
-                </div>
-
-                <h1 className="wrap-break-word text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
-                  {ticket.title}
-                </h1>
-
-                <div className="mt-3 flex flex-wrap items-center gap-2">
-                  <span
-                    className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ${statusStyle}`}
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-current" />
-                    {capitalize(ticket.status)}
-                  </span>
-
-                  <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold ${priorityStyle}`}
-                  >
-                    {capitalize(ticket.priority)}
-                  </span>
-
-                  <span className="inline-flex items-center gap-1.5 text-xs text-gray-500">
-                    <User className="h-3.5 w-3.5 text-gray-400" />
-                    Dilaporkan oleh
-                    <span className="font-semibold text-gray-700">
-                      {ticket.user?.name}
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 sm:flex-row xl:shrink-0">
-              <button className="inline-flex items-center px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-                <Download className="w-4 h-4 mr-2 cursor-pointer" />
-                Lampiran
-              </button>
-              <button className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 shadow-sm hover:shadow transition-all">
-                <CheckCircle className="w-4 h-4 mr-2 cursor-pointer" />
-                Selesaikan Tiket
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <TicketHeader ticket={ticket} />
 
       {/* Success Message */}
-      {submitSuccess && (
-        <div
-          className="flex items-center justify-between gap-4 rounded-2xl border border-green-100 bg-green-50 px-4 py-2 shadow-sm"
-          role="alert"
-        >
-          <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100">
-              <CheckCircle className="h-4 w-4 text-green-600" />
-            </div>
-
-            <p className="text-sm font-semibold text-green-700">
-              {submitSuccess}
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setSubmitSuccess(null)}
-            className="rounded-md p-1 text-green-600 transition-colors hover:bg-green-100 cursor-pointer"
-            aria-label="Tutup pesan"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-      )}
+      <SuccessAlert
+        message={submitSuccess}
+        onClose={() => setSubmitSuccess(null)}
+      />
 
       {/* Discussion */}
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        {/* Discussion Header */}
-        <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4 sm:px-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
-              <MessageCircle className="h-4 w-4" />
-            </div>
-
-            <div>
-              <h2 className="text-sm font-semibold text-gray-800 sm:text-base">
-                Diskusi
-              </h2>
-
-              <p className="text-xs text-gray-400">Percakapan terkait tiket</p>
-            </div>
-          </div>
-
-          {ticket.ticket_replies?.length > 0 && (
-            <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-500">
-              {ticket.ticket_replies.length} tanggapan
-            </span>
-          )}
-        </div>
-
-        {/* Replies */}
-        {ticket.ticket_replies?.length > 0 ? (
-          <div className="divide-y divide-gray-100">
-            {ticket.ticket_replies.map((reply) => (
-              <TicketReplyItem key={reply.id} reply={reply} />
-            ))}
-          </div>
-        ) : (
-          <div className="px-6 py-14 text-center">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
-              <MessageCircle className="h-5 w-5 text-gray-400" />
-            </div>
-
-            <p className="text-sm font-semibold text-gray-600">
-              Belum ada tanggapan
-            </p>
-
-            <p className="mt-1 text-xs text-gray-400">
-              Jadilah yang pertama memberikan tanggapan.
-            </p>
-          </div>
-        )}
-
-        {/* Reply Form */}
-        <TicketReplyForm
-          form={form}
-          onChange={setForm}
-          onSubmit={handleSubmit}
-          error={submitError}
-          loading={submitLoading}
-        />
-      </div>
+      <TicketDiscussion
+        replies={ticket.ticket_replies}
+        form={form}
+        onChange={setForm}
+        onSubmit={handleSubmit}
+        error={submitError}
+        loading={submitLoading}
+      />
     </div>
   );
 };
