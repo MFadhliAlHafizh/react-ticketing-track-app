@@ -11,7 +11,7 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { error, setError, loading, setLoading, setUser } = useAppContext();
+  const { error, setError, loading, setLoading, fetchUser } = useAppContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,15 +19,11 @@ export const Register = () => {
     setError(null);
 
     try {
-      const response = await axiosInstance.post("/register", {
-        name,
-        email,
-        password,
-      });
+      const response = await axiosInstance.post("/register", { name, email, password });
       const token = response.data.data.token;
 
       Cookies.set("token", token);
-      setUser(response.data.data.user);
+      await fetchUser();
 
       navigate("/");
     } catch (error) {
